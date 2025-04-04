@@ -1,7 +1,10 @@
-
 import { useState, useEffect } from "react";
-import { Carte } from './component/Carte';  
+import dynamic from 'next/dynamic';
 
+// Dynamically import Carte with SSR disabled
+const Carte = dynamic(() => import('./component/Carte'), {
+  ssr: false,
+});
 
 export default function Home() {
     const [annee, setAnnee] = useState([]);
@@ -19,19 +22,14 @@ export default function Home() {
         <>
         <div className="bg-gray-950 min-h-screen flex flex-col items-center justify-center space-y-4 p-4 ">
             <div className="text-white text-2xl font-bold space-x-4">
-
                 <input
                     type="text"
                     placeholder="Recherche..."
                     className="p-2 rounded border border-gray-950"/>
-
                 <select className="p-2 rounded border border-gray-950">
-                    {
-                       annee.map((annee) => (
-                            <option key={annee} value={annee}>{annee}</option>
-                        )
-                       )
-                    }
+                    {annee.map((annee) => (
+                        <option key={annee} value={annee}>{annee}</option>
+                    ))}
                 </select>
             </div>
             
